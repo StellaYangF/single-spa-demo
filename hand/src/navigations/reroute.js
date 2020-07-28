@@ -9,9 +9,9 @@ import './navigator-events';
 // 核心处理应用
 export function reroute() {
 
-    // 获取要加载的应用 NOT_LOADED
-    // 获取要被挂载的应用 NOT_MOUNTED
-    // 获取要被卸载的应用
+    // 1. 获取要加载的应用 NOT_LOADED
+    // 2. 获取要被挂载的应用 NOT_MOUNTED
+    // 3. 获取要被卸载的应用
     const { appsToMount, appsToLoad, appsToUnmount } = getAppChanges();
 
     // start 方法调用时，是同步的
@@ -19,7 +19,7 @@ export function reroute() {
     if (started) {
         // app 装载
         console.log('调用 start');
-        return performanceAppChanges(); // 根据路径来装载应用
+        return performAppChanges(); // 根据路径来装载应用
     } else {
         // 注册应用，预先加载
         // 获取 bootstrap, mount, unmount 放到 app 上
@@ -28,7 +28,7 @@ export function reroute() {
     async function loadApps() {
         let apps = await Promise.all(appsToLoad.map(toLoadPromise));
     }
-    async function performanceAppChanges() {
+    async function performAppChanges() {
         // 1. 先卸载不需要的应用
         // 2. 加载需要的应用
         let unmountPromises = appsToUnmount.map(toUnmountPromise);

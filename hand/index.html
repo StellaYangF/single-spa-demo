@@ -8,13 +8,20 @@
 <body>
     <script src='./lib/umd/single-spa.js'></script>
     <script>
-        singleSpa.registerApplication('app1', async () => {},
+        singleSpa.registerApplication('app1', async () => {
+            return {
+                bootstrap: async () => {},
+                mount: async () => {},
+                unmount: async () => {},
+            };
+        },
         location => location.hash.startsWith('#app1'),
         {
             store: {
                 name: 'Stella'
             }
-        })
+        });
+        singleSpa.start();
     </script>
 </body>
 </html>
